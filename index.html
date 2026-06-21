@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATLAS TWINS — Official Website</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold: #c8a84b;
+    --gold-light: #e8c96a;
+    --gold-dark: #8a6c1e;
+    --red: #8b1a1a;
+    --red-bright: #cc2200;
+    --bg-deep: #060606;
+    --bg-mid: #0d0d0d;
+    --bg-card: #111111;
+    --text: #e8e0d0;
+    --text-muted: #8a8070;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Rajdhani', sans-serif;
+    background: var(--bg-deep);
+    color: var(--text);
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: .4;
+  }
+
+  /* ─── NAVIGATION ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem;
+    height: 70px;
+    background: linear-gradient(to bottom, rgba(6,6,6,.98), transparent);
+    border-bottom: 1px solid rgba(200,168,75,.15);
+    transition: background .3s;
+  }
+
+  nav.scrolled {
+    background: rgba(6,6,6,.97);
+    border-bottom-color: rgba(200,168,75,.3);
+  }
+
+  .nav-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.2rem;
+    letter-spacing: .15em;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Cinzel', serif;
+    font-size: .75rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: #000;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(139,26,26,.18) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 80% at 20% 50%, rgba(200,168,75,.06) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 80% at 80% 50%, rgba(200,168,75,.06) 0%, transparent 60%);
+  }
+
+  /* Mountain silhouette SVG background */
+  .hero-mountains {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 55%;
+    opacity: .15;
+  }
+
+  .hero-lines {
+    position: absolute; inset: 0;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(200,168,75,.04) 80px),
+      repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(200,168,75,.04) 80px);
+  }
+
+  .hero-logo-img {
+    width: clamp(220px, 30vw, 380px);
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 40px rgba(200,168,75,.3)) drop-shadow(0 0 80px rgba(139,26,26,.2));
+    position: relative; z-index: 2;
+    animation: heroFade 1.5s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes heroFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-band-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    font-weight: 900;
+    letter-spacing: .08em;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 0 60px rgba(200,168,75,.4), 0 4px 30px rgba(0,0,0,.8);
+    position: relative; z-index: 2;
+    animation: heroFade 1.5s ease .3s forwards;
+    opacity: 0;
+  }
+
+  .hero-tagline {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(.75rem, 1.5vw, 1rem);
+    letter-spacing: .4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-top: 1.2rem;
+    position: relative; z-index: 2;
+    animation: heroFade 1.5s ease .6s forwards;
+    opacity: 0;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1.2rem; margin-top: 3rem;
+    position: relative; z-index: 2;
+    animation: heroFade 1.5s ease .9s forwards;
+    opacity: 0;
+  }
+
+  .btn-primary {
+    font-family: 'Cinzel', serif;
+    font-size: .75rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: .9rem 2.4rem;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background .2s, transform .15s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  .btn-outline {
+    font-family: 'Cinzel', serif;
+    font-size: .75rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: .9rem 2.4rem;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid rgba(200,168,75,.5);
+    cursor: pointer;
+    transition: border-color .2s, color .2s, transform .15s;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    color: var(--text-muted); font-size: .7rem; letter-spacing: .2em;
+    text-transform: uppercase; z-index: 2;
+    animation: heroFade 2s ease 1.5s forwards, bounce 2s ease 2s infinite;
+    opacity: 0;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ─── SECTION STYLES ─── */
+  section { padding: 6rem 0; }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: .65rem;
+    letter-spacing: .4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .8rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+
+  .section-label::before, .section-label::after {
+    content: '';
+    flex: 1; height: 1px; max-width: 60px;
+    background: linear-gradient(to right, transparent, var(--gold-dark));
+  }
+
+  .section-label::after {
+    background: linear-gradient(to left, transparent, var(--gold-dark));
+  }
+
+  .section-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+  }
+
+  .divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(200,168,75,.4), transparent);
+    margin: 0;
+  }
+
+  /* ─── LATEST RELEASE ─── */
+  #release {
+    background: var(--bg-mid);
+    border-top: 1px solid rgba(200,168,75,.1);
+    border-bottom: 1px solid rgba(200,168,75,.1);
+  }
+
+  .release-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .album-cover {
+    position: relative;
+  }
+
+  .album-art {
+    width: 100%;
+    aspect-ratio: 1;
+    background: var(--bg-card);
+    border: 1px solid rgba(200,168,75,.2);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .album-art-inner {
+    width: 80%; height: 80%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    background: #0a0a0a;
+    border: 1px solid rgba(200,168,75,.15);
+  }
+
+  .album-art-inner svg { width: 60%; opacity: .9; }
+
+  .album-art::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(200,168,75,.05) 0%, transparent 50%, rgba(139,26,26,.08) 100%);
+  }
+
+  .album-corner {
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: var(--gold);
+    border-style: solid;
+    opacity: .6;
+  }
+
+  .album-corner.tl { top: -8px; left: -8px; border-width: 2px 0 0 2px; }
+  .album-corner.tr { top: -8px; right: -8px; border-width: 2px 2px 0 0; }
+  .album-corner.bl { bottom: -8px; left: -8px; border-width: 0 0 2px 2px; }
+  .album-corner.br { bottom: -8px; right: -8px; border-width: 0 2px 2px 0; }
+
+  .release-info .year {
+    font-family: 'Cinzel', serif;
+    font-size: .7rem;
+    letter-spacing: .35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: .6rem;
+  }
+
+  .release-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  .release-desc {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  /* ─── TRACKLIST ─── */
+  .tracklist { margin-bottom: 2.5rem; }
+
+  .track-item {
+    display: flex; align-items: center;
+    padding: .75rem 0;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+    cursor: pointer;
+    transition: background .15s;
+    gap: 1rem;
+  }
+
+  .track-item:hover .track-num { color: var(--gold); }
+  .track-item:hover .track-name { color: #fff; }
+
+  .track-num {
+    font-family: 'Cinzel', serif;
+    font-size: .7rem;
+    color: var(--text-muted);
+    width: 2rem;
+    text-align: right;
+    transition: color .15s;
+  }
+
+  .track-name {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: .05em;
+    color: var(--text);
+    flex: 1;
+    transition: color .15s;
+  }
+
+  .track-dur {
+    font-size: .85rem;
+    color: var(--text-muted);
+    font-family: 'Rajdhani', monospace;
+  }
+
+  /* ─── TOUR ─── */
+  #tour {
+    background: var(--bg-deep);
+  }
+
+  .tour-list { display: flex; flex-direction: column; gap: 1px; }
+
+  .tour-item {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem 2rem;
+    background: var(--bg-card);
+    border-left: 3px solid transparent;
+    transition: border-color .2s, background .2s;
+    cursor: pointer;
+  }
+
+  .tour-item:hover {
+    border-left-color: var(--gold);
+    background: #161616;
+  }
+
+  .tour-date {
+    font-family: 'Cinzel', serif;
+    text-align: center;
+  }
+
+  .tour-date .day {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .tour-date .month-year {
+    font-size: .65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .tour-venue { font-size: 1.1rem; font-weight: 600; color: #fff; margin-bottom: .2rem; }
+  .tour-city { font-size: .9rem; color: var(--text-muted); letter-spacing: .05em; }
+
+  .tour-ticket {
+    font-family: 'Cinzel', serif;
+    font-size: .65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(200,168,75,.4);
+    padding: .5rem 1.2rem;
+    text-decoration: none;
+    transition: background .2s, color .2s;
+    white-space: nowrap;
+  }
+
+  .tour-ticket:hover { background: var(--gold); color: #000; }
+
+  /* ─── BAND ─── */
+  #band {
+    background: var(--bg-mid);
+    border-top: 1px solid rgba(200,168,75,.1);
+    border-bottom: 1px solid rgba(200,168,75,.1);
+  }
+
+  .band-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2px;
+  }
+
+  .member-card {
+    position: relative;
+    background: var(--bg-card);
+    aspect-ratio: .8;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .member-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8rem;
+    opacity: .04;
+    filter: blur(2px);
+  }
+
+  .member-info {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 2rem 1.5rem 1.5rem;
+    background: linear-gradient(to top, rgba(6,6,6,.95) 60%, transparent);
+  }
+
+  .member-role {
+    font-family: 'Cinzel', serif;
+    font-size: .6rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .4rem;
+  }
+
+  .member-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .member-overlay {
+    position: absolute; inset: 0;
+    background: rgba(200,168,75,.05);
+    opacity: 0;
+    transition: opacity .3s;
+    border: 1px solid rgba(200,168,75,.0);
+  }
+
+  .member-card:hover .member-overlay {
+    opacity: 1;
+    border-color: rgba(200,168,75,.3);
+  }
+
+  .member-portrait {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .portrait-svg { width: 55%; opacity: .35; }
+
+  /* ─── VIDEO / MEDIA ─── */
+ #media { background: var(--bg-deep); }
+
+  .media-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Featured large card */
+  .video-card-featured {
+    position: relative;
+    background: var(--bg-card);
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    display: block;          /* <a> behaves as block */
+    text-decoration: none;
+  }
+  .video-card-featured .yt-thumbnail {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .5s ease, filter .4s;
+    filter: brightness(.75);
+  }
+  .video-card-featured:hover .yt-thumbnail { transform: scale(1.04); filter: brightness(.9); }
+  .video-card-featured .video-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.1) 55%, transparent 100%);
+    transition: background .3s;
+  }
+  .video-card-featured:hover .video-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.3) 55%, rgba(139,26,26,.1) 100%);
+  }
+  .thumb-fallback {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 40% 40%, rgba(139,26,26,.4), rgba(6,6,6,.9));
+    z-index: 0;
+  }
+  .play-btn-large {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72px; height: 72px;
+    border: 2px solid rgba(200,168,75,.8); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,.5); backdrop-filter: blur(4px);
+    z-index: 3;
+    transition: transform .2s, background .2s, border-color .2s, box-shadow .2s;
+  }
+  .play-btn-large::after {
+    content: '';
+    border-left: 22px solid var(--gold);
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    margin-left: 6px;
+  }
+  .video-card-featured:hover .play-btn-large {
+    transform: translate(-50%, -50%) scale(1.12);
+    background: rgba(200,168,75,.15);
+    border-color: var(--gold);
+    box-shadow: 0 0 30px rgba(200,168,75,.3);
+  }
+  .video-meta { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.4rem 1.6rem; z-index: 3; }
+  .video-label { font-family: 'Cinzel', serif; font-size: .55rem; letter-spacing: .28em; text-transform: uppercase; color: var(--gold); margin-bottom: .4rem; }
+  .video-title-text { font-size: 1.05rem; font-weight: 600; letter-spacing: .04em; color: #fff; text-shadow: 0 1px 8px rgba(0,0,0,.8); }
+
+  /* Side thumbnail cards */
+  .media-side { display: flex; flex-direction: column; gap: 3px; }
+
+  .media-thumb {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex; align-items: flex-end;
+    padding: 1rem 1.2rem;
+    min-height: 0;
+    border-left: 3px solid transparent;
+    transition: border-color .25s;
+    background: var(--bg-card);
+    text-decoration: none;   /* <a> tag */
+  }
+  .media-thumb:hover { border-left-color: var(--gold); }
+  .media-thumb .yt-thumbnail-side {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(.55) saturate(.7);
+    transition: filter .35s, transform .4s;
+  }
+  .media-thumb:hover .yt-thumbnail-side { filter: brightness(.72) saturate(.9); transform: scale(1.05); }
+  .media-thumb .side-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(6,6,6,.88) 0%, rgba(6,6,6,.2) 70%, transparent 100%); }
+  .media-thumb .thumb-fallback-side { position: absolute; inset: 0; background: radial-gradient(ellipse at center, rgba(139,26,26,.25), rgba(6,6,6,.9)); }
+  .thumb-play-sm {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px; height: 40px;
+    border: 1.5px solid rgba(200,168,75,.6); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,.4);
+    transition: transform .2s, background .2s, border-color .2s;
+    z-index: 3;
+  }
+  .thumb-play-sm::after { content: ''; border-left: 13px solid var(--gold); border-top: 8px solid transparent; border-bottom: 8px solid transparent; margin-left: 3px; }
+  .media-thumb:hover .thumb-play-sm { transform: translate(-50%, -50%) scale(1.15); background: rgba(200,168,75,.15); border-color: var(--gold); }
+  .thumb-label { position: relative; z-index: 4; }
+  .thumb-type { font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .25em; color: var(--gold); text-transform: uppercase; margin-bottom: .2rem; }
+  .thumb-name { font-size: .88rem; font-weight: 600; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.8); }
+
+
+  /* ─── SOCIAL / CONNECT ─── */
+  #connect {
+    background: var(--bg-mid);
+    text-align: center;
+    border-top: 1px solid rgba(200,168,75,.1);
+  }
+
+  .social-grid {
+    display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .social-link {
+    display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    text-decoration: none; color: var(--text-muted);
+    font-family: 'Cinzel', serif;
+    font-size: .65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    padding: 1.2rem 1.8rem;
+    border: 1px solid rgba(255,255,255,.07);
+    transition: color .2s, border-color .2s, transform .15s;
+    min-width: 120px;
+  }
+
+  .social-link:hover { color: var(--gold); border-color: rgba(200,168,75,.4); transform: translateY(-3px); }
+
+  .social-icon { font-size: 1.6rem; margin-bottom: .2rem; }
+
+  .newsletter {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .newsletter p {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+    letter-spacing: .03em;
+  }
+
+  .nl-form {
+    display: flex; gap: 0;
+  }
+
+  .nl-input {
+    flex: 1;
+    padding: .9rem 1.2rem;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(200,168,75,.25);
+    border-right: none;
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color .2s;
+  }
+
+  .nl-input:focus { border-color: rgba(200,168,75,.6); }
+  .nl-input::placeholder { color: var(--text-muted); }
+
+  .nl-btn {
+    font-family: 'Cinzel', serif;
+    font-size: .65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    padding: .9rem 1.6rem;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background .2s;
+    white-space: nowrap;
+  }
+
+  .nl-btn:hover { background: var(--gold-light); }
+
+  /* ─── SHOP ─── */
+  #shop {
+    background: var(--bg-deep);
+  }
+
+  .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2px;
+  }
+
+  .shop-card {
+    background: var(--bg-card);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform .25s;
+  }
+
+  .shop-card:hover { transform: translateY(-4px); }
+
+  .shop-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    filter: brightness(.9);
+    transition: filter .3s;
+  }
+
+  .shop-card:hover .shop-img { filter: brightness(1.05); }
+
+  .shop-img-placeholder {
+    width: 100%;
+    aspect-ratio: 1;
+    background: #0e0e0e;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    gap: .8rem;
+    color: var(--text-muted);
+    font-family: 'Cinzel', serif;
+    font-size: .65rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(200,168,75,.08);
+  }
+
+  .shop-img-placeholder .placeholder-icon {
+    font-size: 3rem;
+    opacity: .15;
+  }
+
+  .shop-info {
+    padding: 1.2rem 1.4rem 1.6rem;
+  }
+
+  .shop-tag {
+    font-family: 'Cinzel', serif;
+    font-size: .55rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: .4rem;
+  }
+
+  .shop-name {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: .5rem;
+    letter-spacing: .03em;
+  }
+
+  .shop-price {
+    font-family: 'Cinzel', serif;
+    font-size: .95rem;
+    color: var(--gold);
+    letter-spacing: .05em;
+  }
+
+  .shop-add {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    padding: .7rem;
+    background: transparent;
+    border: 1px solid rgba(200,168,75,.3);
+    color: var(--text-muted);
+    font-family: 'Cinzel', serif;
+    font-size: .6rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .2s, color .2s, border-color .2s;
+  }
+
+  .shop-add:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+
+  .shop-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--red);
+    color: #fff;
+    font-family: 'Cinzel', serif;
+    font-size: .55rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    padding: .3rem .7rem;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: var(--bg-mid);
+    border-top: 1px solid rgba(200,168,75,.1);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-info p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+
+  .contact-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+  }
+
+  .contact-item-label {
+    font-family: 'Cinzel', serif;
+    font-size: .6rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    min-width: 90px;
+    padding-top: .1rem;
+  }
+
+  .contact-item-val {
+    font-size: 1rem;
+    color: var(--text);
+    letter-spacing: .03em;
+  }
+
+  .contact-item-val a {
+    color: var(--text);
+    text-decoration: none;
+    transition: color .2s;
+  }
+
+  .contact-item-val a:hover { color: var(--gold); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+
+  .cf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .cf-input, .cf-textarea, .cf-select {
+    width: 100%;
+    padding: .9rem 1.2rem;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(200,168,75,.2);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color .2s;
+  }
+
+  .cf-input:focus, .cf-textarea:focus, .cf-select:focus { border-color: rgba(200,168,75,.6); }
+  .cf-input::placeholder, .cf-textarea::placeholder { color: var(--text-muted); }
+  .cf-select { color: var(--text-muted); appearance: none; cursor: pointer; }
+  .cf-select option { background: #111; }
+
+  .cf-textarea { resize: vertical; min-height: 140px; }
+
+  .cf-submit {
+    font-family: 'Cinzel', serif;
+    font-size: .75rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    padding: 1rem 2.5rem;
+    background: var(--gold);
+    color: #000;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background .2s, transform .15s;
+    align-self: flex-start;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .cf-submit:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+  @media (max-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .cf-row { grid-template-columns: 1fr; }
+    .shop-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ─── SPOTIFY BAR ─── */
+  #spotify-bar {
+    position: fixed;
+    bottom: -140px;
+    left: 0; right: 0;
+    z-index: 2000;
+    background: rgba(8,8,8,.97);
+    border-top: 1px solid rgba(200,168,75,.3);
+    backdrop-filter: blur(12px);
+    transition: bottom .4s cubic-bezier(.4,0,.2,1);
+    padding: 10px 2rem;
+  }
+
+  #spotify-bar.visible { bottom: 0; }
+
+  #spotify-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex; align-items: center; gap: 1.5rem;
+  }
+
+  #spotify-track-info {
+    display: flex; align-items: center; gap: .8rem;
+    flex-shrink: 0; min-width: 200px;
+  }
+
+  #spotify-bar-img {
+    width: 44px; height: 44px;
+    object-fit: contain;
+    background: #111;
+    border: 1px solid rgba(200,168,75,.2);
+    padding: 3px;
+    flex-shrink: 0;
+  }
+
+  #spotify-bar-name {
+    font-size: .95rem;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 160px;
+  }
+
+  #spotify-bar-album {
+    font-family: 'Cinzel', serif;
+    font-size: .5rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: .15rem;
+  }
+
+  #spotify-embed-wrap {
+    flex: 1;
+    min-width: 0;
+  }
+
+  #spotify-embed-wrap iframe {
+    border-radius: 4px;
+    display: block;
+  }
+
+  #spotify-close {
+    background: none; border: none; cursor: pointer;
+    color: var(--text-muted); font-size: 1.1rem;
+    padding: .4rem .6rem;
+    flex-shrink: 0;
+    transition: color .2s;
+    line-height: 1;
+  }
+
+  #spotify-close:hover { color: #fff; }
+
+  @media (max-width: 768px) {
+    #spotify-bar { padding: 8px 1rem; }
+    #spotify-track-info { display: none; }
+  }
+
+  /* ─── TRACK PLAY BUTTON ─── */
+  .track-play-btn {
+    width: 28px; height: 28px;
+    border: 1px solid rgba(200,168,75,.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: background .2s, border-color .2s, color .2s;
+  }
+
+  .track-item:hover .track-play-btn,
+  .track-item.active .track-play-btn {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #000;
+  }
+
+  .track-item.active { background: rgba(200,168,75,.06); }
+  .track-item.active .track-num,
+  .track-item.active .track-name { color: var(--gold); }
+
+  /* ─── STICKY AUDIO PLAYER ─── */
+  #player-bar {
+    position: fixed;
+    bottom: -120px;
+    left: 0; right: 0;
+    z-index: 2000;
+    background: rgba(8,8,8,.97);
+    border-top: 1px solid rgba(200,168,75,.3);
+    backdrop-filter: blur(12px);
+    padding: 0 2rem;
+    height: 80px;
+    display: flex; align-items: center; gap: 1.5rem;
+    transition: bottom .4s cubic-bezier(.4,0,.2,1);
+  }
+
+  #player-bar.visible { bottom: 0; }
+
+  .player-cover {
+    width: 48px; height: 48px;
+    flex-shrink: 0;
+    object-fit: contain;
+    background: #111;
+    border: 1px solid rgba(200,168,75,.2);
+    padding: 4px;
+  }
+
+  .player-info {
+    flex-shrink: 0;
+    min-width: 160px;
+  }
+
+  .player-track-name {
+    font-size: .95rem;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: .03em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+
+  .player-album-name {
+    font-family: 'Cinzel', serif;
+    font-size: .55rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: .15rem;
+  }
+
+  .player-controls {
+    display: flex; align-items: center; gap: .8rem;
+    flex-shrink: 0;
+  }
+
+  .p-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--text-muted);
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
+    transition: color .2s, transform .15s;
+    flex-shrink: 0;
+  }
+
+  .p-btn:hover { color: var(--gold); transform: scale(1.1); }
+
+  .p-btn.play-pause {
+    width: 48px; height: 48px;
+    border: 1.5px solid rgba(200,168,75,.5);
+    border-radius: 50%;
+    color: var(--gold);
+  }
+
+  .p-btn.play-pause:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+
+  .player-progress-wrap {
+    flex: 1;
+    display: flex; align-items: center; gap: .8rem;
+    min-width: 0;
+  }
+
+  .player-time {
+    font-size: .72rem;
+    color: var(--text-muted);
+    font-family: 'Rajdhani', monospace;
+    flex-shrink: 0;
+    min-width: 36px;
+  }
+
+  .player-progress-bar {
+    flex: 1;
+    height: 3px;
+    background: rgba(255,255,255,.1);
+    border-radius: 2px;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .player-progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    width: 0%;
+    transition: width .1s linear;
+    position: relative;
+  }
+
+  .player-progress-fill::after {
+    content: '';
+    position: absolute; right: -5px; top: -4px;
+    width: 11px; height: 11px;
+    background: var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity .2s;
+  }
+
+  .player-progress-bar:hover .player-progress-fill::after { opacity: 1; }
+
+  .player-volume {
+    display: flex; align-items: center; gap: .5rem;
+    flex-shrink: 0;
+  }
+
+  .vol-slider {
+    width: 70px; height: 3px;
+    background: rgba(255,255,255,.15);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .vol-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 11px; height: 11px;
+    background: var(--gold);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  #player-close {
+    background: none; border: none; cursor: pointer;
+    color: var(--text-muted); font-size: 1.2rem;
+    padding: .4rem;
+    flex-shrink: 0;
+    transition: color .2s;
+  }
+
+  #player-close:hover { color: #fff; }
+
+  @media (max-width: 768px) {
+    #player-bar { gap: .8rem; padding: 0 1rem; }
+    .player-info { display: none; }
+    .player-volume { display: none; }
+    .player-time.end { display: none; }
+  }
+
+  /* ─── DEMO NOTICE BANNER ─── */
+  #demo-notice {
+    position: fixed; top: 70px; left: 0; right: 0; z-index: 999;
+    background: rgba(139,26,26,.92);
+    border-bottom: 1px solid rgba(200,168,75,.3);
+    backdrop-filter: blur(8px);
+    padding: .55rem 2rem;
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+    font-family: 'Cinzel', serif;
+    font-size: .65rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.85);
+  }
+
+  #demo-notice .demo-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 1.5s ease infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: .4; transform: scale(.7); }
+  }
+
+  #demo-notice .demo-dismiss {
+    background: none; border: none; color: rgba(255,255,255,.5);
+    cursor: pointer; font-size: .9rem; padding: 0 .2rem;
+    transition: color .2s; line-height: 1;
+  }
+  #demo-notice .demo-dismiss:hover { color: #fff; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #000;
+    border-top: 1px solid rgba(200,168,75,.15);
+    padding: 3rem 0 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: .15em;
+    margin-bottom: 1.5rem;
+  }
+
+  .footer-links {
+    display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;
+    list-style: none; margin-bottom: 2rem;
+  }
+
+  .footer-links a {
+    font-family: 'Cinzel', serif;
+    font-size: .6rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-copy {
+    font-size: .8rem;
+    color: #333;
+    letter-spacing: .05em;
+  }
+
+  .gold-bar {
+    width: 60px; height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 1.5rem auto;
+  }
+
+  /* ─── DECORATIVE ─── */
+  .scratch-line {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, rgba(200,168,75,.12), transparent);
+    height: 1px; left: 0; right: 0;
+    pointer-events: none;
+  }
+
+  /* ─── HAMBURGER BUTTON ─── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: .4rem;
+    z-index: 1100;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: transform .3s, opacity .3s;
+  }
+
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ─── MOBILE MENU DRAWER ─── */
+  .mobile-menu-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1040;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(3px);
+  }
+  .mobile-menu-backdrop.open { display: block; }
+
+  .mobile-menu {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: 55%;
+    max-width: 280px;
+    z-index: 1050;
+    background: rgba(10,10,10,.98);
+    border-left: 1px solid rgba(200,168,75,.2);
+    display: flex;
+    flex-direction: column;
+    padding: 5rem 2rem 2.5rem;
+    transform: translateX(100%);
+    transition: transform .35s cubic-bezier(.4,0,.2,1);
+  }
+
+  .mobile-menu.open { transform: translateX(0); }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color .2s;
+    line-height: 1;
+    padding: .3rem;
+  }
+  .mobile-menu-close:hover { color: var(--gold); }
+
+  .mobile-nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+  }
+
+  .mobile-nav-links li {
+    border-bottom: 1px solid rgba(200,168,75,.08);
+  }
+
+  .mobile-nav-links a {
+    display: block;
+    font-family: 'Cinzel', serif;
+    font-size: .85rem;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 1rem .2rem;
+    transition: color .2s, padding-left .2s;
+  }
+
+  .mobile-nav-links a:hover { color: var(--gold); padding-left: .5rem; }
+
+  @media (max-width: 768px) {
+    .nav-hamburger { display: flex; }
+    .nav-links { display: none !important; }
+    nav { padding: 0 1.5rem; }
+    .section-inner { padding: 0 1.5rem; }
+    section { padding: 4rem 0; }
+    .release-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .media-grid { grid-template-columns: 1fr; }
+    .tour-item { grid-template-columns: 80px 1fr; gap: 1rem; padding: 1.2rem 1rem; }
+    .tour-ticket { display: none; }
+    .band-grid { grid-template-columns: 1fr 1fr; }
+    .hero-cta { flex-direction: column; align-items: center; }
+    .nl-form { flex-direction: column; }
+    .nl-input { border-right: 1px solid rgba(200,168,75,.25); border-bottom: none; }
+    .nl-btn { width: 100%; text-align: center; }
+    .cf-submit { width: 100%; }
+    .footer-links { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- DEMO NOTICE BANNER -->
+<div id="demo-notice">
+  <span class="demo-dot"></span>
+  🎵 Our first realise is coming soon. Stay tuned.
+  <button class="demo-dismiss" onclick="this.parentElement.style.display='none'" title="Dismiss">✕</button>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">Atlas Twins</a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#release">Music</a></li>
+    <li><a href="#tour">Tour</a></li>
+    <li><a href="#band">Band</a></li>
+    <li><a href="#media">Media</a></li>
+    <li><a href="#connect">Connect</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#contact">Contact Us</a></li>
+  </ul>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU BACKDROP -->
+<div class="mobile-menu-backdrop" id="mobile-menu-backdrop" onclick="toggleMobileMenu()"></div>
+
+<!-- MOBILE MENU DRAWER -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" onclick="toggleMobileMenu()" aria-label="Close menu">✕</button>
+  <ul class="mobile-nav-links">
+    <li><a href="#release" onclick="toggleMobileMenu()">Music</a></li>
+    <li><a href="#tour" onclick="toggleMobileMenu()">Tour</a></li>
+    <li><a href="#band" onclick="toggleMobileMenu()">Band</a></li>
+    <li><a href="#media" onclick="toggleMobileMenu()">Media</a></li>
+    <li><a href="#connect" onclick="toggleMobileMenu()">Connect</a></li>
+    <li><a href="#shop" onclick="toggleMobileMenu()">Shop</a></li>
+    <li><a href="#contact" onclick="toggleMobileMenu()">Contact Us</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+
+  <svg class="hero-mountains" viewBox="0 0 1440 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+    <defs>
+      <linearGradient id="mGrad" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#c8a84b"/>
+        <stop offset="100%" stop-color="#060606"/>
+      </linearGradient>
+    </defs>
+    <polygon fill="url(#mGrad)" points="0,400 180,180 260,240 360,100 440,200 540,80 620,160 720,40 800,130 880,60 960,150 1060,90 1140,200 1240,110 1340,200 1440,150 1440,400"/>
+    <polygon fill="rgba(6,6,6,0.6)" points="0,400 120,260 220,300 320,220 420,270 520,200 600,250 700,190 800,240 920,200 1020,260 1120,210 1220,270 1320,230 1440,260 1440,400"/>
+  </svg>
+
+  <img class="hero-logo-img" src="idex img\atlas bla.png" alt="Atlas Twins">
+
+  <h1 class="hero-band-name">Atlas Twins</h1>
+  <p class="hero-tagline">Rise from the Atlas Mountains &nbsp;·&nbsp; New Album Out Now</p>
+
+  <div class="hero-cta">
+    <a href="#release" class="btn-primary">Listen Now</a>
+    <a href="#tour" class="btn-outline">Tour Dates</a>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <svg width="16" height="24" viewBox="0 0 16 24" fill="none"><rect x="6" y="1" width="4" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M4 18L8 22L12 18" stroke="currentColor" stroke-width="1.5"/></svg>
+    Scroll
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- LATEST RELEASE -->
+<section id="release">
+  <div class="section-inner">
+    <div class="section-label">Latest Release</div>
+    <div class="release-grid">
+      <div class="album-cover">
+        <div class="album-art">
+          <div class="album-art-inner">
+            <img src="idex img\atlas 2.png" alt="Atlas Twins" style="width:85%;height:85%;object-fit:contain;">
+          </div>
+        </div>
+        <div class="album-corner tl"></div>
+        <div class="album-corner tr"></div>
+        <div class="album-corner bl"></div>
+        <div class="album-corner br"></div>
+      </div>
+
+      <div class="release-info">
+        <div class="year">2026 · Full Length Album</div>
+        <h2 class="release-title">Azawan</h2>
+        <p class="release-desc">A thunderous descent into the deep grooves of rock — carved from the peaks of the Atlas Mountains and forged in fire. Raw. Relentless. Unforgettable.</p>
+
+        <div class="tracklist" id="tracklist">
+          <div class="track-item" data-index="0" data-src="01-Anzar.mp3" onclick="playTrack(0)">
+            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
+            <span class="track-num">01</span>
+            <span class="track-name">Anzar</span>
+            <span class="track-dur">4:22</span>
+          </div>
+          <div class="track-item" data-index="1" data-src="02-Gmigh Rgelgh Oul.mp3" onclick="playTrack(1)">
+            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
+            <span class="track-num">02</span>
+            <span class="track-name">Gmigh Rgelgh Oul</span>
+            <span class="track-dur">5:07</span>
+          </div>
+          <div class="track-item" data-index="2" data-src="03-Azemz.mp3" onclick="playTrack(2)">
+            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
+            <span class="track-num">03</span>
+            <span class="track-name">Azemz</span>
+            <span class="track-dur">3:48</span>
+          </div>
+          <div class="track-item" data-index="3" data-src="04-Ansmammi f-Rbbi.mp3" onclick="playTrack(3)">
+            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
+            <span class="track-num">04</span>
+            <span class="track-name">Ansmammi f-Rbbi</span>
+            <span class="track-dur">4:15</span>
+          </div>
+          <div class="track-item" data-index="4" data-src="05-Dunya.mp3" onclick="playTrack(4)">
+            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
+            <span class="track-num">05</span>
+            <span class="track-name">Dunya</span>
+            <span class="track-dur">4:53</span>
+          </div>
+          <div class="track-item" data-index="5" data-src="06-Wach-LME3moul.mp3" onclick="playTrack(5)">
+            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
+            <span class="track-num">06</span>
+            <span class="track-name">Wach &amp; LME3moul</span>
+            <span class="track-dur">5:34</span>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+          <a href="https://bfan.link/zaman-13" target="_blank" class="btn-primary">Stream Now</a>
+          <a href="#shop" class="btn-outline">Order your CD</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- TOUR -->
+<section id="tour">
+  <div class="section-inner">
+    <div class="section-label">On the Road</div>
+    <h2 class="section-title">Tour Dates</h2>
+
+    <div class="tour-list">
+      <div class="tour-item">
+        <div class="tour-date">
+          <div class="day">14</div>
+          <div class="month-year">Jun 2026</div>
+        </div>
+        <div>
+          <div class="tour-venue">L'Olympia</div>
+          <div class="tour-city">Paris, France</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+      <div class="tour-item">
+        <div class="tour-date">
+          <div class="day">18</div>
+          <div class="month-year">Jun 2026</div>
+        </div>
+        <div>
+          <div class="tour-venue">Barbican Centre</div>
+          <div class="tour-city">London, UK</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+      <div class="tour-item">
+        <div class="tour-date">
+          <div class="day">22</div>
+          <div class="month-year">Jun 2026</div>
+        </div>
+        <div>
+          <div class="tour-venue">talwikant Festival</div>
+          <div class="tour-city">Rabat, Morocco</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+      <div class="tour-item">
+        <div class="tour-date">
+          <div class="day">29</div>
+          <div class="month-year">Jun 2026</div>
+        </div>
+        <div>
+          <div class="tour-venue">Salle des Fêtes de la Médina</div>
+          <div class="tour-city">Marrakesh, Morocco</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+      <div class="tour-item">
+        <div class="tour-date">
+          <div class="day">05</div>
+          <div class="month-year">Jul 2026</div>
+        </div>
+        <div>
+          <div class="tour-venue">Tempodrom</div>
+          <div class="tour-city">Berlin, Germany</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+      <div class="tour-item">
+        <div class="tour-date">
+          <div class="day">11</div>
+          <div class="month-year">Jul 2026</div>
+        </div>
+        <div>
+          <div class="tour-venue">Brooklyn Steel</div>
+          <div class="tour-city">New York, USA</div>
+        </div>
+        <a href="#" class="tour-ticket">Tickets</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- BAND -->
+<section id="band">
+  <div class="section-inner" style="margin-bottom:2.5rem;">
+    <div class="section-label">The Artists</div>
+    <h2 class="section-title">The Band</h2>
+    <p>🏔️ Atlas Twins | Established Late 2025.
+✨ Keeping the heritage alive through sound.
+🎷 Desert Blues | High Atlas Grooves | Folk.
+❤️ Doing what we love.
+</p>
+  </div>
+
+  <div class="band-grid" style="max-width:1200px;margin:0 auto;">
+    <div class="member-card">
+      <div class="member-portrait">
+         <img src="idex img\hamid.jpg" alt="OUHDIDA Abdelhamid" style="width:85%;height:85%;object-fit:contain;">
+      </div>
+      <div class="member-info">
+        <div class="member-role">Lead Vocals &amp; Guitar</div>
+        <div class="member-name">Abdelhamid<br>OUHDIDA</div>
+      </div>
+      <div class="member-overlay"></div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-portrait">
+         <img src="idex img\morad.jpg" alt="SLIMANI Mourad" style="width:85%;height:85%;object-fit:contain;">
+      </div>
+      <div class="member-info">
+        <div class="member-role">Bass &amp; Backing Vocals</div>
+        <div class="member-name">Mourad<br>SLIMANI</div>
+      </div>
+      <div class="member-overlay"></div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-portrait">
+       <img src="idex img\omar.jpg" alt="amerdoul omar" style="width:85%;height:85%;object-fit:contain;">
+      </div>
+      <div class="member-info">
+        <div class="member-role">rythmic_Guita &amp; Backing Vocals</div>
+        <div class="member-name">Omar<br>AMERDOUL</div>
+      </div>
+      <div class="member-overlay"></div>
+    </div>
+
+    <div class="member-card">
+      <div class="member-portrait">
+        <svg class="portrait-svg" viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="50" cy="35" rx="22" ry="25" fill="#c8a84b"/>
+          <path d="M10,160 Q15,90 50,80 Q85,90 90,160" fill="#c8a84b"/>
+          <rect x="35" y="90" width="30" height="40" rx="4" fill="#8a6c1e"/>
+        </svg>
+      </div>
+      <div class="member-info">
+        <div class="member-role">Drums &amp; Percussion</div>
+        <div class="member-name">Kan<br>YAN</div>
+      </div>
+      <div class="member-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- MEDIA -->
+<section id="media">
+  <div class="section-inner" style="margin-bottom:2rem;">
+    <div class="section-label">Watch &amp; Listen</div>
+    <h2 class="section-title">Media</h2>
+  </div>
+
+  <div class="media-grid">
+
+    <!-- Video 1 — featured large card -->
+    <a class="video-card-featured"
+       href="https://youtu.be/cu99_63cuaQ"
+       target="_blank" rel="noopener noreferrer">
+      <div class="thumb-fallback"></div>
+      <img class="yt-thumbnail"
+           src="https://img.youtube.com/vi/cu99_63cuaQ/mqdefault.jpg"
+           alt="Atlas Twins — Live Performance Vol. 1"
+           onerror="this.src='https://img.youtube.com/vi/cu99_63cuaQ/hqdefault.jpg'">
+      <div class="video-overlay"></div>
+      <div class="play-btn-large"></div>
+      <div class="video-meta">
+        <div class="video-label">Live Session</div>
+        <div class="video-title-text">Atlas Twins — Live Performance Vol. 1</div>
+      </div>
+    </a>
+
+    <div class="media-side">
+
+      <!-- Video 2 -->
+      <a class="media-thumb"
+         href="https://youtu.be/xfdDQYKoyJM"
+         target="_blank" rel="noopener noreferrer">
+        <div class="thumb-fallback-side"></div>
+        <img class="yt-thumbnail-side"
+             src="https://img.youtube.com/vi/xfdDQYKoyJM/mqdefault.jpg"
+             alt="Atlas Twins — Live Performance Vol. 2"
+             onerror="this.style.display='none'">
+        <div class="side-overlay"></div>
+        <div class="thumb-play-sm"></div>
+        <div class="thumb-label">
+          <div class="thumb-type">Live Session</div>
+          <div class="thumb-name">Atlas Twins — Live Vol. 2</div>
+        </div>
+      </a>
+
+      <!-- Video 3 -->
+      <a class="media-thumb"
+         href="https://youtu.be/kvjF2X1rsE4"
+         target="_blank" rel="noopener noreferrer">
+        <div class="thumb-fallback-side"></div>
+        <img class="yt-thumbnail-side"
+             src="https://img.youtube.com/vi/kvjF2X1rsE4/mqdefault.jpg"
+             alt="Atlas Twins — Live Performance Vol. 3"
+             onerror="this.style.display='none'">
+        <div class="side-overlay"></div>
+        <div class="thumb-play-sm"></div>
+        <div class="thumb-label">
+          <div class="thumb-type">Live Session</div>
+          <div class="thumb-name">Atlas Twins — Live Vol. 3</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONNECT -->
+<section id="connect">
+  <div class="section-inner">
+    <div class="section-label">Follow the Journey</div>
+    <h2 class="section-title" style="text-align:center;">Connect</h2>
+
+    <div class="social-grid">
+      <a href="https://www.instagram.com/atlastwins/" target="_blank" class="social-link">
+        <svg class="social-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        Instagram
+      </a>
+      <a href="#" class="social-link">
+        <svg class="social-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        YouTube
+      </a>
+      <a href="#" class="social-link">
+        <svg class="social-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        Spotify
+      </a>
+      <a href="#" class="social-link">
+        <svg class="social-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.057 10.99c-.035-2.584 2.112-3.826 2.21-3.882-1.203-1.758-3.076-1.998-3.743-2.026-1.594-.162-3.111.94-3.92.94-.808 0-2.05-.92-3.37-.894-1.74.027-3.344 1.013-4.24 2.57-1.808 3.138-.462 7.778 1.293 10.31.859 1.241 1.879 2.634 3.22 2.585 1.292-.048 1.782-.832 3.345-.832s2.006.832 3.37.805c1.39-.026 2.27-1.258 3.124-2.5 1-.444 1.39-1.31 1.41-1.345-.03-.013-2.71-1.039-2.74-4.141zm-2.015-6.931c.715-.866 1.196-2.069 1.064-3.269-1.032.042-2.28.687-3.02 1.554-.664.764-1.244 1.989-1.088 3.167 1.153.09 2.329-.586 3.044-1.452z"></svg>
+        Apple Music
+      </a>
+      <a href="#" class="social-link">
+        <svg class="social-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M7 17.5h.5v-7h-.5v7zm1.5 0h.5v-8h-.5v8zm1.5 0h.5v-9h-.5v9zm1.5 0h.5v-8h-.5v8zm1.5 0h.5v-6h-.5v6zm1.5 0h.5v-5.5h-.5v5.5zm1.5 0h.5v-4.5h-.5v4.5zm1.5 0c1.933 0 3.5-1.567 3.5-3.5s-1.567-3.5-3.5-3.5c-.244 0-.478.025-.704.072C15.932 7.61 14.595 6.5 13 6.5c-.34 0-.665.057-.968.161V17.5h5.468zM1 14.5h.5v-1h-.5v1zm1.5 1h.5v-3h-.5v3zm1.5 1.5h.5v-4.5h-.5v4.5zm1.5 0h.5v-6h-.5v6z"/></svg>
+        SoundCloud
+      </a>
+      <a href="#" class="social-link">
+        <svg class="social-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        FaceBook
+      </a>
+      <a href="#" class="social-link">
+        <svg class="social-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path  d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.292 19.494h2.039L6.486 3.24H4.298l13.311 17.407z"/></svg>
+        X
+      </a>
+      <a href="#" class="social-link">
+        <svg class="social-icon" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M4.889 6.445L8.444 10 4.889 13.555 1.334 10 4.889 6.445z"/>
+      <path d="M12 6.445L15.555 10 12 13.555 8.445 10 12 6.445z"/>
+      <path d="M19.111 6.445L22.666 10 19.111 13.555 15.556 10 19.111 6.445z"/>
+      <path d="M12 12.89L15.555 16.445 12 20 8.445 16.445 12 12.89z"/>/></svg>
+        Tidal
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP -->
+<section id="shop">
+  <div class="section-inner" style="margin-bottom:2.5rem;">
+    <div class="section-label">Official Merchandise</div>
+    <h2 class="section-title">Shop</h2>
+  </div>
+
+  <div class="shop-grid" style="max-width:1200px;margin:0 auto;">
+
+    <div class="shop-card">
+      <div class="shop-badge">New</div>
+      <div class="shop-img-placeholder">
+        <div class="placeholder-icon">👕</div>
+        <span>Add your image here</span>
+      </div>
+      <div class="shop-info">
+        <div class="shop-tag">Apparel</div>
+        <div class="shop-name">Shadow of the Atlas — Tour Tee</div>
+        <div class="shop-price">$35.00</div>
+        <button class="shop-add">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img-placeholder">
+        <div class="placeholder-icon">🎸</div>
+        <span>Add your image here</span>
+      </div>
+      <div class="shop-info">
+        <div class="shop-tag">Vinyl</div>
+        <div class="shop-name">Shadow of the Atlas — Limited Vinyl LP</div>
+        <div class="shop-price">$29.00</div>
+        <button class="shop-add">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-badge">Limited</div>
+      <div class="shop-img-placeholder">
+        <div class="placeholder-icon">🧢</div>
+        <span>Add your image here</span>
+      </div>
+      <div class="shop-info">
+        <div class="shop-tag">Apparel</div>
+        <div class="shop-name">AT Logo Snapback Cap</div>
+        <div class="shop-price">$28.00</div>
+        <button class="shop-add">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img-placeholder">
+        <div class="placeholder-icon">📀</div>
+        <span>Add your image here</span>
+      </div>
+      <div class="shop-info">
+        <div class="shop-tag">Music</div>
+        <div class="shop-name">Shadow of the Atlas — CD + Booklet</div>
+        <div class="shop-price">$15.00</div>
+        <button class="shop-add">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-img-placeholder">
+        <div class="placeholder-icon">🪧</div>
+        <span>Add your image here</span>
+      </div>
+      <div class="shop-info">
+        <div class="shop-tag">Accessories</div>
+        <div class="shop-name">Twin Wolves Poster — 24×36"</div>
+        <div class="shop-price">$18.00</div>
+        <button class="shop-add">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-badge">Bundle</div>
+      <div class="shop-img-placeholder">
+        <div class="placeholder-icon">📦</div>
+        <span>Add your image here</span>
+      </div>
+      <div class="shop-info">
+        <div class="shop-tag">Bundle</div>
+        <div class="shop-name">The Full Atlas Pack — Tee + Vinyl + Cap</div>
+        <div class="shop-price">$75.00</div>
+        <button class="shop-add">Add to Cart</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-title">Contact Us</h2>
+
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p>For bookings, press enquiries, collaborations or just to reach out — we'd love to hear from you. The Atlas awaits.</p>
+
+        <div class="contact-detail">
+          <div class="contact-item">
+            <div class="contact-item-label">Booking</div>
+            <div class="contact-item-val"><a href="mailto:atlastwins01@gmail.com">atlastwins01@gmail.com</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">Press</div>
+            <div class="contact-item-val"><a href="mailto:atlastwins01@gmail.com">atlastwins01@gmail.com</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">General</div>
+            <div class="contact-item-val"><a href="mailto:atlastwins01@gmail.com">atlastwins01@gmail.com</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">WhatsApp</div>
+            <div class="contact-item-val"><a href="https://wa.me/212643215434" target="_blank">+212 6 43215434</a></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div id="cf-success" style="display:none;color:var(--gold);font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem;padding:1rem;border:1px solid rgba(200,168,75,.3);text-align:center;">✓ Message sent! We'll be in touch soon.</div>
+        <div id="cf-error" style="display:none;color:#cc4444;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:1rem;"></div>
+        <div class="cf-row">
+          <input class="cf-input" id="cf-name" type="text" placeholder="Your Name">
+          <input class="cf-input" id="cf-email" type="email" placeholder="Your Email">
+        </div>
+        <select class="cf-select" id="cf-subject">
+          <option value="" disabled selected>Subject</option>
+          <option>Booking Enquiry</option>
+          <option>Press / Media</option>
+          <option>Collaboration</option>
+          <option>Fan Message</option>
+          <option>Other</option>
+        </select>
+        <textarea class="cf-textarea" id="cf-message" placeholder="Your message..."></textarea>
+        <button class="cf-submit" id="cf-btn" onclick="submitContactForm()">Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Atlas Twins</div>
+  <ul class="footer-links">
+    <li><a href="#release">Music</a></li>
+    <li><a href="#tour">Tour</a></li>
+    <li><a href="#band">Band</a></li>
+    <li><a href="#media">Media</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#connect">Connect</a></li>
+    <li><a href="#contact">Contact Us</a></li>
+  </ul>
+  <div class="gold-bar"></div>
+  <p class="footer-copy">&copy; 2026 Atlas Twins. All rights reserved.</p>
+</footer>
+
+<!-- SPOTIFY PLAYER BAR -->
+<div id="spotify-bar">
+  <div id="spotify-bar-inner">
+    <div id="spotify-track-info">
+      <img src="idex img\atlas bla.png" alt="Atlas Twins" id="spotify-bar-img">
+      <div>
+        <div id="spotify-bar-name">—</div>
+        <div id="spotify-bar-album">Shadow of the Atlas · Atlas Twins</div>
+      </div>
+    </div>
+    <div id="spotify-embed-wrap">
+      <iframe id="spotify-iframe"
+        src=""
+        width="100%" height="80"
+        frameborder="0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy">
+      </iframe>
+    </div>
+    <button id="spotify-close" onclick="closeSpotify()">✕</button>
+  </div>
+</div>
+
+<script>
+  const SPOTIFY_TRACKS = [
+    '6Dde7qt79k8X3UTiXU1Ksl',
+    '5EsgMhlZtopx1grqMuWBFR',
+    '2gokgL7bFKiZKabY0oODIu',
+    '5HkEUvNmHXvLvVEx2YHDub',
+    '0bJreajU4Ep9HlzjP6mQU3',
+    '7gLLmsRoKpfi9WoOx002tl',
+  ];
+
+  const trackNames = [
+    'Anzar', 'Gmigh Rgelgh Oul', 'Azemz',
+    'Ansmammi f-Rbbi', 'Dunya', 'Wach & LME3moul'
+  ];
+
+  let currentTrackIndex = -1;
+
+  function playTrack(idx) {
+    currentTrackIndex = idx;
+    document.getElementById('spotify-bar-name').textContent = trackNames[idx];
+    document.getElementById('spotify-iframe').src =
+      `https://open.spotify.com/embed/track/${SPOTIFY_TRACKS[idx]}?utm_source=generator&theme=0`;
+    document.getElementById('spotify-bar').classList.add('visible');
+
+    document.querySelectorAll('#tracklist .track-item').forEach((el, i) => {
+      el.classList.toggle('active', i === idx);
+      el.querySelector('.track-play-btn').innerHTML = i === idx
+        ? '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="1" width="3" height="10"/><rect x="7" y="1" width="3" height="10"/></svg>'
+        : '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg>';
+    });
+  }
+
+  function closeSpotify() {
+    document.getElementById('spotify-iframe').src = '';
+    document.getElementById('spotify-bar').classList.remove('visible');
+    document.querySelectorAll('#tracklist .track-item').forEach(el => {
+      el.classList.remove('active');
+      el.querySelector('.track-play-btn').innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg>';
+    });
+    currentTrackIndex = -1;
+  }
+
+  /* ── mobile menu ── */
+  function toggleMobileMenu() {
+    const menu     = document.getElementById('mobile-menu');
+    const backdrop = document.getElementById('mobile-menu-backdrop');
+    const btn      = document.getElementById('nav-hamburger');
+    const isOpen   = menu.classList.toggle('open');
+    backdrop.classList.toggle('open', isOpen);
+    btn.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+
+  /* ── contact form → Web3Forms (sends from website, no page leave) ── */
+  async function submitContactForm() {
+    const name    = document.getElementById('cf-name').value.trim();
+    const email   = document.getElementById('cf-email').value.trim();
+    const subject = document.getElementById('cf-subject').value || 'General Enquiry';
+    const message = document.getElementById('cf-message').value.trim();
+    const btn     = document.getElementById('cf-btn');
+    const success = document.getElementById('cf-success');
+    const error   = document.getElementById('cf-error');
+
+    success.style.display = 'none';
+    error.style.display   = 'none';
+
+    if (!name || !email || !message) {
+      error.textContent   = '✕ Please fill in your name, email and message.';
+      error.style.display = 'block';
+      return;
+    }
+
+    btn.textContent = 'Sending…';
+    btn.disabled    = true;
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: 'PASTE_YOUR_KEY_HERE',
+          name, email, subject, message,
+          from_name: 'Atlas Twins Website',
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        success.style.display = 'block';
+        document.getElementById('cf-name').value = '';
+        document.getElementById('cf-email').value = '';
+        document.getElementById('cf-subject').selectedIndex = 0;
+        document.getElementById('cf-message').value = '';
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (e) {
+      error.textContent   = '✕ Could not send. Please try again.';
+      error.style.display = 'block';
+    }
+
+    btn.textContent = 'Send Message';
+    btn.disabled    = false;
+  }
+
+  /* ── nav scroll ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 80));
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.tour-item, .member-card, .media-thumb, .release-info').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .6s ease, transform .6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
