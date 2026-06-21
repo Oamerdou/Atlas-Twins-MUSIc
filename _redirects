@@ -1,0 +1,12 @@
+# _redirects — Netlify redirect rules
+# Place this file in the root of your published folder
+
+# Force HTTPS
+http://atlastwins.com/*        https://www.atlastwins.com/:splat   301!
+http://www.atlastwins.com/*    https://www.atlastwins.com/:splat   301!
+
+# Redirect bare domain to www (optional — remove if you prefer no www)
+https://atlastwins.com/*       https://www.atlastwins.com/:splat   301!
+
+# Serve index.html for all routes (single-page app)
+/*    /index.html    200

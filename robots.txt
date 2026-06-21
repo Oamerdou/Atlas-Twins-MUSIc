@@ -1,0 +1,13 @@
+# robots.txt — Atlas Twins Official Website
+# https://www.atlastwins.com
+
+User-agent: *
+Allow: /
+
+# Point crawlers to the sitemap
+Sitemap: https://www.atlastwins.com/sitemap.xml
+
+# Block crawlers from any future admin or private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
