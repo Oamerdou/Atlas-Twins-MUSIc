@@ -1,4 +1,4 @@
-                <!DOCTYPE html>
+<!DOCTYPE html>
 <html >
 <head>
 <meta charset="UTF-8">
@@ -1370,6 +1370,129 @@
     .cf-submit { width: 100%; }
     .footer-links { gap: 1rem; }
   }
+
+  /* ─── TRACK PLAYER CARD (redesign) ─── */
+  .tracklist { margin-bottom: 2.5rem; }
+
+  .track-item {
+    position: relative;
+    display: flex; align-items: center; gap: 1.4rem;
+    padding: 1.3rem 1.6rem;
+    background: linear-gradient(135deg, rgba(200,168,75,.08), rgba(139,26,26,.10) 60%, rgba(17,17,17,.9));
+    border: 1px solid rgba(200,168,75,.25);
+    border-bottom: 1px solid rgba(200,168,75,.25);
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color .25s, transform .25s, box-shadow .25s;
+  }
+
+  .track-item::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+    background: linear-gradient(to bottom, var(--gold-light), var(--gold-dark));
+  }
+
+  .track-item:hover {
+    border-color: rgba(200,168,75,.6);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(0,0,0,.5), 0 0 30px rgba(200,168,75,.08);
+  }
+
+  .track-item.active { background: linear-gradient(135deg, rgba(200,168,75,.14), rgba(139,26,26,.14) 60%, rgba(17,17,17,.9)); }
+
+  .track-item .track-play-btn {
+    position: relative;
+    width: 58px; height: 58px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    color: var(--gold);
+    background: rgba(0,0,0,.35);
+    flex-shrink: 0;
+    transition: background .2s, color .2s, transform .2s, box-shadow .2s;
+  }
+
+  .track-item .track-play-btn svg { width: 20px; height: 20px; }
+  .track-item .track-play-btn svg polygon { transform: translateX(1px); }
+
+  .track-item .track-play-btn::after {
+    content: '';
+    position: absolute; inset: -7px;
+    border: 1px solid rgba(200,168,75,.35);
+    border-radius: 50%;
+    animation: ringPulse 2.4s ease-out infinite;
+  }
+
+  @keyframes ringPulse {
+    0%   { transform: scale(.9); opacity: .9; }
+    100% { transform: scale(1.35); opacity: 0; }
+  }
+
+  .track-item:hover .track-play-btn,
+  .track-item.active .track-play-btn {
+    background: var(--gold);
+    color: #000;
+    transform: scale(1.06);
+    box-shadow: 0 0 28px rgba(200,168,75,.45);
+  }
+
+  .track-item.active .track-play-btn::after { animation-duration: 1.4s; }
+
+  .track-meta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: .25rem; }
+
+  .track-kicker {
+    font-family: 'Cinzel', serif;
+    font-size: .55rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .track-item .track-name {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: .05em;
+    color: #fff;
+    flex: none;
+  }
+
+  .track-item.active .track-name { color: var(--gold-light); }
+
+  .track-sub { font-size: .85rem; color: var(--text-muted); letter-spacing: .08em; }
+
+  /* equalizer */
+  .eq { display: flex; align-items: flex-end; gap: 3px; height: 22px; opacity: .25; transition: opacity .3s; }
+  .eq i { display: block; width: 3px; height: 30%; background: var(--gold); border-radius: 1px; }
+  .track-item.active .eq { opacity: 1; }
+  .track-item.active .eq i { animation: eqBar 1s ease-in-out infinite; }
+  .track-item.active .eq i:nth-child(2) { animation-delay: .2s; }
+  .track-item.active .eq i:nth-child(3) { animation-delay: .4s; }
+  .track-item.active .eq i:nth-child(4) { animation-delay: .1s; }
+
+  @keyframes eqBar {
+    0%, 100% { height: 25%; }
+    50%      { height: 100%; }
+  }
+
+  .track-item .track-dur { font-family: 'Cinzel', serif; font-size: .8rem; letter-spacing: .1em; color: var(--text-muted); }
+
+  /* bottom player bar polish */
+  #spotify-bar {
+    background: linear-gradient(to top, rgba(6,6,6,.99), rgba(14,12,8,.97));
+    border-top: 1px solid rgba(200,168,75,.45);
+    box-shadow: 0 -10px 40px rgba(0,0,0,.6);
+  }
+  #spotify-bar-img { border-radius: 4px; border-color: rgba(200,168,75,.4); }
+  #spotify-bar-name { font-family: 'Cinzel', serif; letter-spacing: .06em; }
+  #spotify-close { border: 1px solid rgba(200,168,75,.25); border-radius: 50%; width: 32px; height: 32px; padding: 0; font-size: .8rem; }
+  #spotify-close:hover { border-color: var(--gold); color: var(--gold); }
+
+  @media (max-width: 768px) {
+    .track-item { padding: 1rem; gap: 1rem; }
+    .track-item .track-play-btn { width: 50px; height: 50px; }
+    .track-item .track-name { font-size: 1.2rem; }
+    .eq { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -1377,7 +1500,7 @@
 <!-- DEMO NOTICE BANNER -->
 <div id="demo-notice">
   <span class="demo-dot"></span>
-  🎵 Our first realise is coming soon. Stay tuned.
+  🎵 Our first release is coming soon. Stay tuned.
   <button class="demo-dismiss" onclick="this.parentElement.style.display='none'" title="Dismiss">✕</button>
 </div>
 
@@ -1434,7 +1557,7 @@
   <img class="hero-logo-img" src="img\atlas bla.png" alt="Atlas Twins">
 
   <h1 class="hero-band-name">Atlas Twins</h1>
-  <p class="hero-tagline">Rise from the Atlas Mountains &nbsp;·&nbsp; New Album Out Now</p>
+  <p class="hero-tagline">Rise from the Atlas Mountains &nbsp;·&nbsp; New Single Out Now</p>
 
   <div class="hero-cta">
     <a href="#release" class="btn-primary">Listen Now</a>
@@ -1452,7 +1575,7 @@
 <!-- LATEST RELEASE -->
 <section id="release">
   <div class="section-inner">
-    <div class="section-label">Latest Release</div>
+    <div class="section-label">Latest Single</div>
     <div class="release-grid">
       <div class="album-cover">
         <div class="album-art">
@@ -1467,46 +1590,20 @@
       </div>
 
       <div class="release-info">
-        <div class="year">2026 · Full Length Album</div>
-        <h2 class="release-title">Azawan</h2>
+        <div class="year">2026 · Single</div>
+        <h2 class="release-title">Anzar</h2>
         <p class="release-desc">A thunderous descent into the deep grooves of rock — carved from the peaks of the Atlas Mountains and forged in fire. Raw. Relentless. Unforgettable.</p>
 
         <div class="tracklist" id="tracklist">
-          <div class="track-item" data-index="0" data-src="01-Anzar.mp3" onclick="playTrack(0)">
+          <div class="track-item" data-index="0" onclick="playTrack(0)">
             <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
-            <span class="track-num">01</span>
-            <span class="track-name">Anzar</span>
+            <div class="track-meta">
+              <span class="track-kicker">Press play</span>
+              <span class="track-name">Anzar</span>
+              <span class="track-sub">Atlas Twins · Single</span>
+            </div>
+            <span class="eq"><i></i><i></i><i></i><i></i></span>
             <span class="track-dur">4:22</span>
-          </div>
-          <div class="track-item" data-index="1" data-src="02-Gmigh Rgelgh Oul.mp3" onclick="playTrack(1)">
-            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
-            <span class="track-num">02</span>
-            <span class="track-name">Gmigh Rgelgh Oul</span>
-            <span class="track-dur">5:07</span>
-          </div>
-          <div class="track-item" data-index="2" data-src="03-Azemz.mp3" onclick="playTrack(2)">
-            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
-            <span class="track-num">03</span>
-            <span class="track-name">Azemz</span>
-            <span class="track-dur">3:48</span>
-          </div>
-          <div class="track-item" data-index="3" data-src="04-Ansmammi f-Rbbi.mp3" onclick="playTrack(3)">
-            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
-            <span class="track-num">04</span>
-            <span class="track-name">Ansmammi f-Rbbi</span>
-            <span class="track-dur">4:15</span>
-          </div>
-          <div class="track-item" data-index="4" data-src="05-Dunya.mp3" onclick="playTrack(4)">
-            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
-            <span class="track-num">05</span>
-            <span class="track-name">Dunya</span>
-            <span class="track-dur">4:53</span>
-          </div>
-          <div class="track-item" data-index="5" data-src="06-Wach-LME3moul.mp3" onclick="playTrack(5)">
-            <span class="track-play-btn"><svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><polygon points="2,1 11,6 2,11"/></svg></span>
-            <span class="track-num">06</span>
-            <span class="track-name">Wach &amp; LME3moul</span>
-            <span class="track-dur">5:34</span>
           </div>
         </div>
 
@@ -1951,7 +2048,7 @@
       <img src="img\atlas bla.png" alt="Atlas Twins" id="spotify-bar-img">
       <div>
         <div id="spotify-bar-name">—</div>
-        <div id="spotify-bar-album">Shadow of the Atlas · Atlas Twins</div>
+        <div id="spotify-bar-album">Anzar · Atlas Twins</div>
       </div>
     </div>
     <div id="spotify-embed-wrap">
@@ -1970,16 +2067,10 @@
 <script>
   const SPOTIFY_TRACKS = [
     '6Dde7qt79k8X3UTiXU1Ksl',
-    '5EsgMhlZtopx1grqMuWBFR',
-    '2gokgL7bFKiZKabY0oODIu',
-    '5HkEUvNmHXvLvVEx2YHDub',
-    '0bJreajU4Ep9HlzjP6mQU3',
-    '7gLLmsRoKpfi9WoOx002tl',
   ];
 
   const trackNames = [
-    'Anzar', 'Gmigh Rgelgh Oul', 'Azemz',
-    'Ansmammi f-Rbbi', 'Dunya', 'Wach & LME3moul'
+    'Anzar'
   ];
 
   let currentTrackIndex = -1;
